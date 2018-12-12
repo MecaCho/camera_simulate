@@ -1,9 +1,22 @@
-docker pull jrottenberg/ffmpeg:4.0-scratch
+#docker pull jrottenberg/ffmpeg:4.0-scratch
 
-FROM docker.io/jrottenberg/ffmpeg:4.0-scratch
+FROM docker.io/jrottenberg/ffmpeg:4.0-centos
+#FROM docker.io/jrottenberg/ffmpeg:4.0-scratch
+#FROM docker.io/jrottenberg/ffmpeg:3.4-alpine
+
+ADD EasyDarwin-linux-8.1.0-1811292237 /tmp/EasyDarwin-linux-8.1.0-1811292237
+#RUN chmod +x /tmp/EasyDarwin-linux-8.1.0-1811292237.tar.gz
+#RUN tar -xzvf /tmp/EasyDarwin-linux-8.1.0-1811292237.tar.gz -C /tmp
+RUN cd /tmp/EasyDarwin-linux-8.1.0-1811292237 
+#RUN sed 's/554/${PORT}/g' -i /tmp/EasyDarwin-linux-8.1.0-1811292237/easydarwin.ini
+#RUN sed 's/10008/${HTTP_PORT}/g' -i /tmp/EasyDarwin-linux-8.1.0-1811292237/easydarwin.ini
 
 
-ADD ./test.mp4 /tmp/test.mp4
+ADD easydarwin.ini /tmp/easydarwin.ini
+ADD easydarwin /tmp/easydarwin
+RUN chmod +x /tmp/easydarwin
+
+ADD test.mp4 /tmp/test.mp4
 RUN chmod +x /tmp/test.mp4
 
 ADD ./scripts/start_camera_simulate.sh /root/scripts/start_camera_simulate.sh
